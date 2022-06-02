@@ -22,11 +22,18 @@ app
     res.send('Status OK');
   });
 
-
 app.get('/player/:name', (req, res) => {
   const playerName = req.params.name;
   const options = {
-    url:  `${mlbHost}/json/named.search_player_all.bam?sport_code='mlb'&active_sw='Y'&name_part='${playerName}%25'`
+    url: `${mlbHost}/json/named.search_player_all.bam?sport_code='mlb'&active_sw='Y'&name_part='${playerName}%25'`
+  };
+  request(options).pipe(res);
+});
+
+app.get('/team/:teamID', (req, res) => {
+  const teamID = req.params.teamID;
+  const options = {
+    url: `${mlbHost}/json/named.roster_40.bam?team_id='${teamID}'`
   };
   request(options).pipe(res);
 });
